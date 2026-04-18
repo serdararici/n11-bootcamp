@@ -3,7 +3,7 @@ package factory;
 
 import payment.IPaymentMethod;
 import payment.PayPalPayment;
-import service.CreditCardPayment;
+import payment.CreditCardPayment;
 
 public class PaymentFactory {
 
@@ -20,7 +20,7 @@ public class PaymentFactory {
             case 2:
                 return new PayPalPayment();
             default:
-                throw new IllegalArgumentException("Invalid payment method selected");
+                return null;
         }
     }
 }

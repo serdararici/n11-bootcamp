@@ -1,6 +1,4 @@
-package service;
-
-import payment.IPaymentMethod;
+package payment;
 
 public class CreditCardPayment implements IPaymentMethod {
 
