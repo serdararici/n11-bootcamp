@@ -1,26 +1,26 @@
 package factory;
 
-
 import payment.IPaymentMethod;
-import payment.PayPalPayment;
-import payment.CreditCardPayment;
 
 public class PaymentFactory {
 
-// Factory Pattern is used here to encapsulate object creation logic.
-// This improves code maintainability and follows SOLID principles,
-// especially Open/Closed Principle (OCP).
-
-    // Creates payment method based on user selection
-    public static IPaymentMethod createPayment(int choice) {
-
-        switch (choice) {
-            case 1:
-                return new CreditCardPayment();
-            case 2:
-                return new PayPalPayment();
-            default:
-                return null;
+    /**
+     * Creates payment instances using Reflection to satisfy Open/Closed Principle.
+     * As mentioned in the bootcamp, this avoids switch-case blocks.
+     */
+    public static IPaymentMethod createPayment(String className) {
+        if (className == null || className.isEmpty()) {
+            throw new IllegalArgumentException("Payment method not found.");
+        }
+        try {
+            String fullPath = "payment." + className;
+            return (IPaymentMethod) Class.forName(fullPath)
+                    .getDeclaredConstructor()
+                    .newInstance();
+        } catch (ClassNotFoundException e) {
+            throw new IllegalArgumentException("Unknown payment type: " + className);
+        } catch (Exception e) {
+            throw new RuntimeException("Payment instantiation failed: " + className, e);
         }
     }
 }

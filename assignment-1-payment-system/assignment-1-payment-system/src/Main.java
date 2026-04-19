@@ -4,7 +4,9 @@ import logging.ConsoleLogger;
 import payment.IPaymentMethod;
 import service.PaymentService;
 
+import java.util.HashMap;
 import java.util.InputMismatchException;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -13,6 +15,12 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         AbstractLogger logger = new ConsoleLogger();
         PaymentService paymentService = new PaymentService(logger);
+
+        // 1. Map selection keys to class names (Configuration)
+        Map<Integer, String> paymentMethods = new HashMap<>();
+        paymentMethods.put(1, "CreditCardPayment");
+        paymentMethods.put(2, "PayPalPayment");
+        //paymentMethods.put(3, "ApplePayPayment"); // New method? Just add one line here.
 
         System.out.println("####################################");
         System.out.println("#     Welcome to Payment System    #");
@@ -38,7 +46,11 @@ public class Main {
                 System.out.print("Enter amount: ");
                 double amount = scanner.nextDouble();
 
-                IPaymentMethod paymentMethod = PaymentFactory.createPayment(choice);
+                //Get payment class with factory and it is using reflection
+                //get the class name from the map.
+                String className = paymentMethods.get(choice);
+                // 3. Create object via Reflection
+                IPaymentMethod paymentMethod = PaymentFactory.createPayment(className);
 
                 //service handles everything
                 paymentService.processPayment(paymentMethod, amount);
