@@ -10,7 +10,7 @@ public class PaymentFactory {
      */
     public static IPaymentMethod createPayment(String className) {
         if (className == null || className.isEmpty()) {
-            throw new IllegalArgumentException("Payment method not found.");
+            return null;
         }
         try {
             String fullPath = "payment." + className;
