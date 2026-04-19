@@ -74,22 +74,22 @@ Processing payment via Credit Card...
 🛠️ Installation & Running
 Clone the repository:
 
-Bash```
+```Bash
 git clone [https://github.com/your-username/n11-bootcamp.git](https://github.com/your-username/n11-bootcamp.git)
 Navigate to the project directory:
 ```
 
-Bash```
+```Bash
 cd n11-bootcamp
 Compile the project:
 ```
 
-Bash```
+```Bash
 javac Main.java
 Run the application:
 ```
 
-Bash```
+```Bash
 java Main
 ```
 ---
